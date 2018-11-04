@@ -33,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ListView listView = findViewById(R.id.List);
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, repositories);
         repositories = new ArrayList<String>();
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, repositories);
         listView.setAdapter(arrayAdapter);
         OkHttpClient client = new OkHttpClient();
         final String url = "https://api.github.com/orgs/JBossOutreach/repos";
