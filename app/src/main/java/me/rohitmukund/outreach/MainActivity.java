@@ -27,7 +27,6 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
     ArrayList<String> repositories;
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
