@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ListView listView = findViewById(R.id.List);
+        ListView listView = findViewById(R.id.list);
         repositories = new ArrayList<String>();
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, repositories);
         listView.setAdapter(arrayAdapter);
@@ -50,16 +50,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if(response.isSuccessful()) {
-                     String myResponse = response.body().toString();
+                    String myResponse = response.body().toString();
 
                     try {
                         JSONArray arr = new JSONArray(myResponse);
                         for(int i = 0; i <arr.length(); i++) {
-                              JSONObject part = arr.getJSONObject(i);
-                              String repoName = part.getString("name");
+                            JSONObject part = arr.getJSONObject(i);
+                            String repoName = part.getString("name");
 
-                              repositories.add(repoName);
-                              arrayAdapter.notifyDataSetChanged();
+                            repositories.add(repoName);
 
 
 
@@ -75,9 +74,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        }
-
-
-
     }
 
+
+
+}
