@@ -22,49 +22,31 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity
+public class Contributors extends AppCompatActivity
 {
-    final String url = "https://api.github.com/orgs/JBossOutreach/repos";
-    ArrayList<String> repositories;
+    ArrayList<String> repositorie;
     Information info = new Information();
-    int counter = 0;
-    public int getCounter() {
-        return counter;
-    }
+    String url;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_option1);
+       url = info.urls[info.getCounter()];
+        ListView listView = findViewById(R.id.lists);
+        repositorie = new ArrayList<>();
 
-        ListView listView = findViewById(R.id.list);
-        repositories = new ArrayList<>();
-
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, repositories);
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, repositorie);
         listView.setAdapter(arrayAdapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(position == 0) {
-                    info.setCounter(0);
-                    Intent myIntent = new Intent(view.getContext(),Contributors.class);
-                    startActivityForResult(myIntent, 0);
-                }
-                if(position == 1) {
-                    info.setCounter(1);
-                    Intent myIntent2 = new Intent(view.getContext(),Contributors.class);
-                    startActivityForResult(myIntent2, 0);
-                }
-            }
-        });
+
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response)
             {
-                Log.d("MainActivity", response);
+                Log.d("Contributors", response);
 
                 try
                 {
@@ -72,9 +54,9 @@ public class MainActivity extends AppCompatActivity
                     for (int i = 0; i < arr.length(); i++)
                     {
                         JSONObject part = arr.getJSONObject(i);
-                        String repoName = part.getString("name");
+                        String repoName = part.getString("login");
 
-                        repositories.add(repoName);
+                        repositorie.add(repoName);
                         arrayAdapter.notifyDataSetChanged();
                     }
 
